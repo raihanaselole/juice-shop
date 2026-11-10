@@ -1,0 +1,47 @@
+# Snyk policy file
+version: v1.25.0
+ignore:
+  # 1. Critical: marsdb (No direct fix available, database internal Juice Shop)
+  SNYK-JS-MARSDB-480405:
+    - '*':
+        reason: 'No direct upgrade path available for marsdb. Used in core application scope.'
+        expires: 2026-12-31T00:00:00.000Z
+
+  # 2. High: http-cache-semantics (Build/Dev-only via node-gyp & sqlite3)
+  SNYK-JS-HTTPCACHESEMANTICS-19964064:
+    - sqlite3 > node-gyp > make-fetch-happen > http-cache-semantics:
+        reason: 'Dev-only dependency chain via node-gyp, not exposed to production web traffic.'
+        expires: 2026-12-31T00:00:00.000Z
+  SNYK-JS-HTTPCACHESEMANTICS-19964068:
+    - sqlite3 > node-gyp > make-fetch-happen > http-cache-semantics:
+        reason: 'Dev-only dependency chain via node-gyp.'
+        expires: 2026-12-31T00:00:00.000Z
+
+  # 3. High: basic-ftp (No direct upgrade path from proxy-agent)
+  SNYK-JS-BASICFTP-20419408:
+    - proxy-agent > pac-proxy-agent > get-uri > basic-ftp:
+        reason: 'Nested transitive dependency without direct fix path in current stack.'
+        expires: 2026-12-31T00:00:00.000Z
+
+  # 4. High: tar (Sub-dependency under sqlite3)
+  SNYK-JS-TAR-15307072:
+    - sqlite3 > tar:
+        reason: 'Build-time compression tool under sqlite3.'
+        expires: 2026-12-31T00:00:00.000Z
+  SNYK-JS-TAR-15416075:
+    - sqlite3 > tar:
+        reason: 'Build-time compression tool under sqlite3.'
+        expires: 2026-12-31T00:00:00.000Z
+  SNYK-JS-TAR-15456201:
+    - sqlite3 > tar:
+        reason: 'Build-time compression tool under sqlite3.'
+        expires: 2026-12-31T00:00:00.000Z
+  SNYK-JS-TAR-17909068:
+    - sqlite3 > tar:
+        reason: 'Build-time compression tool under sqlite3.'
+        expires: 2026-12-31T00:00:00.000Z
+  SNYK-JS-TAR-17909152:
+    - sqlite3 > tar:
+        reason: 'Build-time compression tool under sqlite3.'
+        expires: 2026-12-31T00:00:00.000Z
+patch: {}
